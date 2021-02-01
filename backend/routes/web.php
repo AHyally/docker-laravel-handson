@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TodoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +17,15 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('todos', [TodoController::class, 'index']);
+Route::get('todos/create', [TodoController::class, 'create']);
+Route::post('todos', [TodoController::class, 'store']);
+Route::get('todos/{id}', [TodoController::class, 'show']);
+Route::get('todos/{id}/edit', [TodoController::class, 'edit']);
+Route::put('todos/{id}', [TodoController::class, 'update']);
+Route::delete('todos/{id}', [TodoController::class, 'destroy']);
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
